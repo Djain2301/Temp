@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Email & password validation</title>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	
+		$("#btn").hide();
+	
+		$("#email").keyup(function(){
+			if(validateEmail()){
+			
+				$("#email").css("border","2px solid green");
+			
+				$("#emailMsg").html("<p class='text-success'>Validated</p>");
+			}else{
+				
+				$("#email").css("border","2px solid red");
+				$("#emailMsg").html("<p class='text-danger'>Un-validated</p>");
+			}
+			buttonState();
+		});
+	
+		$("#pass").keyup(function(){
+			
+		
+			if(validatePassword()){
+				
+	
+				$("#pass").css("border","2px solid green");
+			
+				$("#passMsg").html("<p class='text-success'>Password validated</p>");
+			}else{
+				
+				$("#pass").css("border","2px solid red");
+			
+				$("#passMsg").html("<p class='text-danger'>Password not valid</p>");
+			}
+			buttonState();
+		});
+        $("#confirmPass").keyup(function(){
+		
+			if(validatePassword1()){
+			
+				$("#pass").css("border","2px solid green");
+			
+				$("#passMsg").html("<p class='text-success'>Password matched</p>");
+			}else{
+				
+				$("#pass").css("border","2px solid red");
+			
+				$("#passMsg").html("<p class='text-danger'>Password not matched</p>");
+			}
+			buttonState();
+		});
+
+		$("#adharid").keyup(function(){
+		
+		if(validateAdharNumber()){
+		
+			$("#adharid").css("border","2px solid green");
+		
+			$("#passMsgAdhar").html("<p class='text-success'>Adhar is valid</p>");
+		}else{
+			
+			$("#adharid").css("border","2px solid red");
+		
+			$("#passMsgAdhar").html("<p class='text-danger'>Adhar is not valid</p>");
+		}
+		buttonState();
+	});
+	});
+
+	function buttonState(){
+		if(validateEmail() && validatePassword() && validatePassword1() && validateAdharNumber()){
+	
+			$("#btn").show();
+		}else{
+			
+			$("#btn").hide();
+		}
+	}
+	function validateEmail(){
+	
+		var email=$("#email").val();
+		
+		 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+		 if(reg.test(email)){
+		 	return true;
+		 }else{
+		 	return false;
+		 }
+
+	}
+	function validatePassword(){
+	
+		var pass=$("#pass").val();
+
+		if(pass.length > 7){
+			return true;
+		}else{
+			return false;
+		}
+	}
+    function validatePassword1(){
+	
+		var pass=$("#pass").val();
+        var new_pass=$("#confirmPass").val();
+		
+		if(pass==new_pass){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function validateAdharNumber(){
+		var adharNumber = $("#adharid").val();
+		let val = '1234567890' 
+		let isnum = /^\d+$/.test(adharNumber);
+		if (isnum && adharNumber.length==12) {
+		    return true;
+		}
+		else{
+			return false;
+		}
+
+	}
+</script>
+<body>
+<form method="POST" action="/register">
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		
+		
+		<div class="col-md-4 border shadow-sm bg-light" style="margin-top:8%;padding:10px;">
+		
+				<img src="https://innovaccer12345.s3.amazonaws.com/download.jpeg" alt="" width:70px; height="70px" style="margin-left: 135px;margin-bottom: 40px;">
+			 
+            <div class="form-group">
+				<label>Enter Name:</label>
+				<input type="text" class="form-control" id="" placeholder="Enter full name" autocomplete="off" name="">
+				<span id="#"></span>
+			</div>
+            <div class="form-group">
+				<label>Adhar Number:</label>
+				<input type="text" class="form-control" id="adharid" placeholder="Enter Adhar number" autocomplete="off" name="">
+				<p class='text-info' style="font-size: x-small;margin-bottom: 0%">Should contain only integers and must be of length 12</p>
+				<span id="passMsgAdhar"></span>
+			</div>
+			<div class="form-group">
+				<label>Enter email:</label>
+				<input type="email" class="form-control" id="email" placeholder="Enter email" autocomplete="off" name="">
+				<span id="emailMsg"></span>
+			</div>
+            
+			<div class="form-group">
+				<label>Enter password:</label>
+				<input type="password" class="form-control" id="pass" placeholder="Enter password" autocomplete="off" name="">
+				<span><p class='text-info' style="font-size: x-small;margin-bottom: 0%;">Should contain 8 characters, atleast one special character and atleast one integer</p></span>
+				<span id="passMsg"></span>
+			</div>
+            <div class="form-group">
+				<label>Confirm password:</label>
+				<input type="password" class="form-control" id="confirmPass" placeholder="Retype password" autocomplete="off" name="">
+				
+				<span id="passMsg"></span>
+			</div>
+			<div class="form-group">
+				<label for="cars">Gender:</label>
+				<select name="cars" id="cars" style="border: 1px 1px 1px;">
+					<option value="volvo" default>Select</option>
+				  <option value="volvo">Male</option>
+				  <option value="saab">Female</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary btn-block" id="btn">Submit</button>
+			</div>
+			
+		</div>
+		<div class="col-md-4">
+		</div>
+		
+	</div>
+</div>
+</form>
+</body>
+</html>
